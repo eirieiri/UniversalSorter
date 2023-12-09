@@ -38,11 +38,6 @@ function generateOption() {
   return optionContainer;
 }
 
-generateOption()
-generateOption()
-generateOption()
-generateOption()
-
 document.addEventListener("DOMContentLoaded", function () {
   const addInputButton = document.getElementById("addInputButton");
 

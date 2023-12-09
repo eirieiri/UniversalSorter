@@ -24,12 +24,15 @@ document.addEventListener("DOMContentLoaded", function () {
           link: ""
         });
       }
-
-      shuffle(savedInputs);
     }
 
+    shuffle(savedInputs);
     console.log(savedInputs);
+
+
+    bracketDivider(saveInputs)
   });
+
 });
 
 function saveInputs(array) {
@@ -39,7 +42,7 @@ function saveInputs(array) {
     const nameInput = option.querySelector(".name-input");
     const linkInput = option.querySelector(".link-input");
 
-    if (nameInput && linkInput) {
+    if (nameInput.value.trim() !== "" && linkInput.value.trim() !== "") {
       const inputObject = {
         name: nameInput.value,
         link: linkInput.value,
@@ -67,3 +70,14 @@ function shuffle(array) {
   return array;
 }
 
+function bracketDivider(number_of_rounds) {
+  result = []
+  let outputContainer = document.getElementById("output")
+  for (let round = 1; round <= number_of_rounds; round++) {
+    let text = document.createElement("p")
+    text.textContent = "Round ${round} out of ${number_of_rounds}"
+    outputContainer.appendChild(text)
+
+  }
+  return result;
+}

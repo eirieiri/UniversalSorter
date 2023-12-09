@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const confirmButton = document.getElementById("confirmButton");
   const optionContainer = document.getElementById("optionContainer");
-  const buttonContainer = document.getElementById("button")
+  const buttonContainer = document.getElementById("button");
   const outputElement = document.getElementById("output");
 
   const savedInputs = [];
@@ -9,27 +9,26 @@ document.addEventListener("DOMContentLoaded", function () {
   confirmButton.addEventListener("click", function () {
     saveInputs();
 
-    buttonContainer.innerHTML = ""
-    optionContainer.innerHTML = ""
+    buttonContainer.innerHTML = "";
+    optionContainer.innerHTML = "";
 
     const bracketSize = [2, 4, 16, 32, 64, 128, 256, 512];
 
     if (!bracketSize.includes(savedInputs.length)) {
-      let closestBigger = bracketSize.find(size => size > savedInputs.length)
+      let closestBigger = bracketSize.find(size => size > savedInputs.length);
 
-      for (let i = 0; i < closestBigger - savedInputs; i++) {
+      for (let i = savedInputs.length; i < closestBigger; i++) {
         savedInputs.push({
           name: "",
           link: ""
-        })
+        });
       }
 
-      shuffle(saveInputs)
+      shuffle(savedInputs);
     }
+
+    console.log(savedInputs);
   });
-
-
-
 });
 
 function saveInputs() {
@@ -50,14 +49,10 @@ function saveInputs() {
   });
 }
 
-function bracketGenerator() {
-
-}
-
 
 //code from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array 
 function shuffle(array) {
-  let currentIndex = array.length,  randomIndex;
+  let currentIndex = array.length, randomIndex;
 
   while (currentIndex > 0) {
 

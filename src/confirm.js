@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const savedInputs = [];
 
   confirmButton.addEventListener("click", function () {
-    saveInputs();
+    saveInputs(savedInputs);
+    console.log("Confirm button clicked!");
 
     buttonContainer.innerHTML = "";
     optionContainer.innerHTML = "";
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function saveInputs() {
+function saveInputs(array) {
   const options = optionContainer.querySelectorAll(".option");
 
   options.forEach((option) => {
@@ -44,7 +45,7 @@ function saveInputs() {
         link: linkInput.value,
       };
 
-      savedInputs.push(inputObject);
+      array.push(inputObject);
     }
   });
 }

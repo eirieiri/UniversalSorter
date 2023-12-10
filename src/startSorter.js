@@ -1,54 +1,96 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const confirmButton = document.getElementById("confirmButton");
-    const optionContainer = document.getElementById("optionContainer");
-    const buttonContainer = document.getElementById("button");
-    const outputElement = document.getElementById("output");
-  
+    //Get Containers 
+    const inputContainer = document.getElementById("input");
+    const buttonContainer = document.getElementById("buttons");
+    const textContainer = document.getElementById("text");
+
+    //
     const savedInputs = [];
-  
-    confirmButton.addEventListener("click", function () {
-      saveInputs(savedInputs);
-      console.log("Confirm button clicked!");
-  
-      buttonContainer.innerHTML = "";
-      optionContainer.innerHTML = "";
-  
-      const bracketSize = [2, 4, 16, 32, 64, 128, 256, 512];
-  
-      if (!bracketSize.includes(savedInputs.length)) {
-        let closestBigger = bracketSize.find(size => size > savedInputs.length);
-  
-        for (let i = savedInputs.length; i < closestBigger; i++) {
-          savedInputs.push({
-            name: "",
-            link: ""
-          });
+
+    document.addEventListener("click", function () {
+        if (event.target.id === "start-manual") {
+
+            saveInputs(savedInputs);
+            console.log("Confirm button clicked!");
+
+            //clear the html 
+            buttonContainer.innerHTML = "";
+            inputContainer.innerHTML = "";
+            textContainer.innerHTML = "";
+
+            shuffle(savedInputs);
+            console.log(savedInputs);
+
+            createChoicePage();
         }
-      }
-  
-      shuffle(savedInputs);
-      console.log(savedInputs);
-  
-  
-      bracketDivider(saveInputs)
     });
-  
-  });
-  
-  function saveInputs(array) {
-    const options = optionContainer.querySelectorAll(".option");
-  
+});
+
+function saveInputs(array) {
+    const inputContainer = document.getElementById("input");
+    const options = inputContainer.querySelectorAll(".option");
+
     options.forEach((option) => {
-      const nameInput = option.querySelector(".name-input");
-      const linkInput = option.querySelector(".link-input");
-  
-      if (nameInput.value.trim() !== "" && linkInput.value.trim() !== "") {
-        const inputObject = {
-          name: nameInput.value,
-          link: linkInput.value,
-        };
-  
-        array.push(inputObject);
-      }
+        const nameInput = option.querySelector(".name-input");
+        const linkInput = option.querySelector(".link-input");
+
+        if (nameInput.value.trim() !== "" || linkInput.value.trim() !== "") {
+            const inputObject = {
+                name: nameInput.value,
+                link: linkInput.value,
+            };
+
+            array.push(inputObject);
+        }
+
     });
-  }
+}
+
+/**
+ * Shuffles the array 
+ * 
+ * @param {Object[]} array 
+ * @returns shuffled array 
+ */
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+
+    while (currentIndex > 0) {
+
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
+/**
+ * Created a Page with 2 buttons each one corresponding to a mode of sorting 
+ *   - Sorter 
+ *   - Manual Sort 
+ */
+function createChoicePage() {
+    const textContainer = document.getElementById("text");
+    const buttonContainer = document.getElementById("buttons");
+
+    let text = document.createElement("h2");
+    text.textContent = "Choose the mode of Sorting: "
+    textContainer.appendChild(text);
+
+    //Create the 2 buttons 
+    let sorterButton = document.createElement("button"); 
+    sorterButton.textContent = "Sorter";
+    sorterButton.id = "sorter-button";
+
+    let bracketButton = document.createElement("button");
+    bracketButton.textContent = "Bracket";
+    bracketButton.id = "bracket-button";
+    bracketButton.disabled = true;
+
+    //append the buttons 
+    buttonContainer.appendChild(sorterButton);
+    buttonContainer.appendChild(bracketButton)
+}

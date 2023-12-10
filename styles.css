@@ -2,16 +2,29 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: lightblue;
 }
 
 button {
     width: 200px;
     height: 50px;
-    background-color: lightcoral;
+    background-color: #ffb894;
+    border-radius: 10px;
+}
+
+button:disabled {
+    background-color: #c7a797;
+    color: black;
+    outline: black;
 }
 
 .buttons {
     display: flex;
     margin: 20px;
     gap: 20px;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3em;
 }

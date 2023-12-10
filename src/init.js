@@ -26,9 +26,6 @@ playlistButton.disabled = true;
 
 playlistContainer.appendChild(playlistButton);
 
-
-
-
 //final append 
 buttonContainer.appendChild(manualContainer);
 buttonContainer.appendChild(playlistContainer);

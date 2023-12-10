@@ -2,6 +2,7 @@
  * Initiate the screen, have 2 buttons 
  *   Manual 
  *   Youtube Playlist - for now non functining 
+ * 
  */
 
 var buttonContainer = document.getElementById("buttons");
@@ -29,3 +30,4 @@ playlistContainer.appendChild(playlistButton);
 //final append 
 buttonContainer.appendChild(manualContainer);
 buttonContainer.appendChild(playlistContainer);
+

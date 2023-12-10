@@ -36,3 +36,50 @@ function generateOption() {
     return optionContainer;
 }
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    /**
+    * On the press of Manual button, generates base of the manual enter page 
+    * 
+    * 2 input boxes: 
+    *   - youtube or image url
+    *   - text box 
+    *   via the generateOption function 
+    * 2 buttons:
+    *   - Add option: uses generateOption (id = "addOption") 
+    *   - Start
+    */
+    const manualButton = document.getElementById("manual-input")
+
+    manualButton.addEventListener("click", function () {
+        //get different dontainers 
+        let buttonsContainer = document.getElementById("buttons")
+        let textContainer = document.getElementById("text")
+
+        //empty the body of the container
+        buttonsContainer.textContent = ""
+
+        //add some text to the text container 
+        let text = document.createElement("h2")
+        text.textContent = "Enter your options manually: "
+        textContainer.appendChild(text)
+
+        //generate the first 2 input boxes
+        generateOption();
+
+        //Add the 2 buttons bellow 
+        let addInputButton = document.createElement("button")
+        addInputButton.id = "addOption"
+        addInputButton.textContent = "+ add Option"
+        buttonsContainer.appendChild(addInputButton)
+    })
+
+    /**
+    * When button is pressed with addOption id, a new box is added to the input container 
+    */
+    document.addEventListener("click", function (event) {
+        if (event.target.id === "addOption") {
+            generateOption();
+        }
+    });
+})

@@ -72,6 +72,12 @@ document.addEventListener("DOMContentLoaded", function () {
         addInputButton.id = "addOption"
         addInputButton.textContent = "+ add Option"
         buttonsContainer.appendChild(addInputButton)
+
+        //Add the start button 
+        let startButton = document.createElement("button")
+        startButton.id = "start-manual"
+        startButton.textContent = "Start!" 
+        buttonsContainer.appendChild(startButton)
     })
 
     /**

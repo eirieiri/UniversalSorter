@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
             finishedMessage.textContent = "Congrats! You finished sorting!" 
 
             textContainer.appendChild(finishedMessage);
+            displayTable(sorted)
         }
     });
 });
@@ -243,4 +244,50 @@ async function chooseCharacter(left, right) {
 
         document.addEventListener("click", handleButtonClick);
     });
+}
+
+
+function displayTable(array) {
+    // Get the container where you want to display the table
+    const textContainer = document.getElementById("table-container");
+
+    // Create a table element
+    const table = document.createElement("table");
+
+    // Create table header
+    const headerRow = document.createElement("tr");
+    const embedHeader = document.createElement("th");
+    const nameHeader = document.createElement("th");
+    embedHeader.textContent = "Embed";
+    nameHeader.textContent = "Name";
+    headerRow.appendChild(embedHeader);
+    headerRow.appendChild(nameHeader);
+    table.appendChild(headerRow);
+
+    // Create table rows
+    array.forEach(item => {
+        const row = document.createElement("tr");
+        const embedCell = document.createElement("td");
+        const nameCell = document.createElement("td");
+
+        // Create an iframe for the embed
+        const embedIframe = document.createElement("iframe");
+        embedIframe.src = item.link;
+        embedIframe.width = "300"; 
+        embedIframe.height = "200"; 
+        embedCell.appendChild(embedIframe);
+
+        // Set the name
+        nameCell.textContent = item.name;
+
+        // Append cells to the row
+        row.appendChild(embedCell);
+        row.appendChild(nameCell);
+
+        // Append the row to the table
+        table.appendChild(row);
+    });
+
+    // Append the table to the container
+    textContainer.appendChild(table);
 }

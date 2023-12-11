@@ -121,11 +121,22 @@ function processYoutubelink(url) {
 
 //
 function startSorter(array) {
+    console.log("Sorter was started")
     //find the different containers 
-    let option_1Container = document.getElementById("opt-1")
-    let option_2Container = document.getElementById("opt-2")
+    let buttonContainer = document.getElementById("buttons")
+
+    let leftButton = document.createElement("button");
+    leftButton.textContent = "Choose"
+    leftButton.id = "left-option"
+
+    let rightButton = document.createElement("button");
+    rightButton.textContent = "Choose"
+    rightButton.id = "right-option"
+
+    buttonContainer.appendChild(leftButton)
+    buttonContainer.appendChild(rightButton)
     
-    mergeSort(array, 1)
+    let sorted = mergeSort(array, 1)
 }
 
 //merge function
@@ -133,13 +144,15 @@ function merge(left, right, battleNumber) {
     let textContainer = document.getElementById("text")
     let text = document.createElement("h2");
     h2 = `Battle N.${battleNumber}`;
+    
+    textContainer.appendChild(text)
 
     battleNumber++
 
     let arr = [];
 
     while (left.length && right.left) {
-        if (chooseCharacter() === 0) {
+        if (chooseCharacter(left[0], right[0]) === 0) {
             arr.push(left.shift());
         } else {
             arr.push(right.shift());
@@ -150,6 +163,7 @@ function merge(left, right, battleNumber) {
 
 //mergeSort function 
 function mergeSort(array, battleNumber) {
+    console
 
     let half = array.length / 2;
 
@@ -162,9 +176,31 @@ function mergeSort(array, battleNumber) {
 }
 
 //based of what button is pressed returns 1 or 0 
-function chooseCharacter() {
+function chooseCharacter(left, right) {
     let option_1Container = document.getElementById("opt-1")
     let option_2Container = document.getElementById("opt-2")
-    
-    return 0; 
+
+    //left
+    let iframe1 = document.createElement("iframe")
+    iframe1.src = left.link;
+    let name1 = document.createElement(h3);
+    name1.class = "char-option";
+    name1.textContent = left.name;
+
+    //append 
+    option_1Container.appendChild(iframe1)
+    option_1Container.appendChild(name1)
+
+    //right
+    let iframe2 = document.createElement("iframe");
+    iframe2.src = right.link;
+    let name2 = document.createElement(h3);
+    name2.class = "char-option";
+    name2.textContent = right.name;
+
+    //append
+    option_2Container.appendChild(iframe2)
+    option_2Container.appendChild(name2)
+
+    return 0;
 }

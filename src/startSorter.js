@@ -119,7 +119,7 @@ function processYoutubelink(url) {
 }
 
 //
-function startSorter(array) {
+async function startSorter(array) {
     let optionCharacterElement = document.getElementById("option-character");
     optionCharacterElement.style.display = "flex";
     console.log("Sorter was started")
@@ -141,7 +141,7 @@ function startSorter(array) {
 }
 
 //merge function
-function merge(left, right, battleNumber) {
+async function merge(left, right, battleNumber) {
     console.log("merge was started")
     let textContainer = document.getElementById("text")
     textContainer.textContent = ""
@@ -154,9 +154,9 @@ function merge(left, right, battleNumber) {
 
     let arr = [];
 
-    let choice = chooseCharacter(left[0], right[0]);
-
     while (left.length && right.length) {
+        let choice = await chooseCharacter(left[0], right[0]);
+
         if (choice === 0) {
             arr.push(left.shift());
         } else {
@@ -167,65 +167,67 @@ function merge(left, right, battleNumber) {
 }
 
 //mergeSort function 
-function mergeSort(array, battleNumber) {
+async function mergeSort(array, battleNumber) {
     console.log("merge sort was started")
 
-    let half = array.length / 2;
-
-    if (array.length < 2) {
-        return array
+    if (array.length <= 1) {
+        return array;
     }
 
-    const left = array.splice(0, half);
-    return merge(mergeSort(left, battleNumber), mergeSort(array, battleNumber), battleNumber)
+    const middle = Math.floor(array.length / 2);
+    const left = array.slice(0, middle);  
+    const right = array.slice(middle);
+
+    return merge(await mergeSort(left, battleNumber), await mergeSort(right, battleNumber), battleNumber);
 }
 
+
 //based of what button is pressed returns 1 or 0 
-function chooseCharacter(left, right) {
-    let option_1Container = document.getElementById("opt-1")
-    let option_2Container = document.getElementById("opt-2")
+async function chooseCharacter(left, right) {
+    return new Promise((resolve, reject) => {
+        let option_1Container = document.getElementById("opt-1");
+        let option_2Container = document.getElementById("opt-2");
 
-    option_1Container.textContent = ""
-    option_2Container.textContent = ""
+        option_1Container.textContent = "";
+        option_2Container.textContent = "";
 
-    //left
-    let iframe1 = document.createElement("iframe")
-    iframe1.src = left.link;
-    let name1 = document.createElement("h2");
-    name1.className = "char-option";
-    name1.textContent = left.name;
+        // Display left character
+        let iframe1 = document.createElement("iframe")
+        iframe1.src = left.link;
+        let name1 = document.createElement("h2");
+        name1.className = "char-option";
+        name1.textContent = left.name;
 
-    //append 
-    option_1Container.appendChild(iframe1)
-    option_1Container.appendChild(name1)
+        option_1Container.appendChild(iframe1)
+        option_1Container.appendChild(name1)
 
-    //right
-    let iframe2 = document.createElement("iframe");
-    iframe2.src = right.link;
-    let name2 = document.createElement("h2");
-    name2.className = "char-option";
-    name2.textContent = right.name;
+        // Display right character
+        let iframe2 = document.createElement("iframe");
+        iframe2.src = right.link;
+        let name2 = document.createElement("h2");
+        name2.className = "char-option";
+        name2.textContent = right.name;
 
-    //append
-    option_2Container.appendChild(iframe2)
-    option_2Container.appendChild(name2)
+        option_2Container.appendChild(iframe2)
+        option_2Container.appendChild(name2)
 
-    //make buttons reactable
-    console.log("Choose option")
+        // Make buttons reactable
+        console.log("Choose option")
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const leftConfirm = document.getElementById("left-option")
+        // Event listener for button click
+        function handleButtonClick(event) {
+            if (event.target.id === "left-option") {
+                console.log("left was chosen");
+                resolve(0);  // Resolve the Promise with the choice 0
+            } else if (event.target.id === "right-option") {
+                console.log("right was chosen");
+                resolve(1);  // Resolve the Promise with the choice 1
+            }
 
-        leftConfirm.addEventListener("click", function () {
-            console.log("left was chosen")
-            return 0;
-        });
+            // Remove the event listener after the choice is made
+            document.removeEventListener("click", handleButtonClick);
+        }
 
-        const rightConfirm = document.getElementById("right-option")
-
-        rightConfirm.addEventListener("click", function () {
-            console.log("right was chosen")
-            return 1;
-        });
+        document.addEventListener("click", handleButtonClick);
     });
 }

@@ -141,6 +141,7 @@ function startSorter(array) {
 
 //merge function
 function merge(left, right, battleNumber) {
+    console.log("merge was started")
     let textContainer = document.getElementById("text")
     let text = document.createElement("h2");
     h2 = `Battle N.${battleNumber}`;
@@ -151,8 +152,10 @@ function merge(left, right, battleNumber) {
 
     let arr = [];
 
+    let choice = chooseCharacter(left[0], right[0])
+
     while (left.length && right.left) {
-        if (chooseCharacter(left[0], right[0]) === 0) {
+        if (choice === 0) {
             arr.push(left.shift());
         } else {
             arr.push(right.shift());
@@ -163,7 +166,7 @@ function merge(left, right, battleNumber) {
 
 //mergeSort function 
 function mergeSort(array, battleNumber) {
-    console
+    console.log("merge sort was started")
 
     let half = array.length / 2;
 
@@ -202,5 +205,7 @@ function chooseCharacter(left, right) {
     option_2Container.appendChild(iframe2)
     option_2Container.appendChild(name2)
 
+    //make buttons reactable
+    console.log
     return 0;
 }

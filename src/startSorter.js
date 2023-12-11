@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const buttonContainer = document.getElementById("buttons");
     const textContainer = document.getElementById("text");
     const choiceContainer = document.getElementById("option-character")
+    const resultsContainer = document.getElementById("results")
 
     const thingsToSort = [];
 
@@ -40,6 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
             finishedMessage.textContent = "Congrats! You finished sorting!" 
 
             textContainer.appendChild(finishedMessage);
+
+            console.log("Displaying results")
+            console.log(sorted)
+            await displayResults(sorted, resultsContainer)
         }
     });
 });
@@ -245,9 +250,8 @@ async function chooseCharacter(left, right) {
     });
 }
 
-function displayResults(sorted) {
-    var resultsContainer = document.getElementById("results");
-
+async function displayResults(sorted, container) {
+    console.log("DisplayResults is being run")
     var table = document.createElement("table");
 
     var headerRow = document.createElement("tr");
@@ -267,8 +271,9 @@ function displayResults(sorted) {
     table.appendChild(headerRow);
 
     sorted.forEach((element, index) => {
+        console.log("Index: " + index)
         var row = document.createElement("tr");
-        index++
+        index++;
 
         var placementCell = document.createElement("td");
         var embedCell = document.createElement("td");
@@ -285,5 +290,5 @@ function displayResults(sorted) {
         table.appendChild(row);
     });
 
-    resultsContainer.appendChild(table);
+    container.appendChild(table);
 }

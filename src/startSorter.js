@@ -251,8 +251,11 @@ async function displayResults(sorted, container) {
     var headerRow = document.createElement("tr");
     
     var placementHeader = document.createElement("th");
+    placementHeader.width = "50px"; 
     var embedHeader = document.createElement("th");
+    embedHeader.width = "600px"
     var nameHeader = document.createElement("th");
+    nameHeader.width = "200px"
 
     placementHeader.textContent = "Placement";
     embedHeader.textContent = "Link";

@@ -36,6 +36,7 @@ h1 {
     width: 500px;
     height: 600px;
     background-color:  pink;
+    text-align: center;
 }
 
 iframe {
@@ -47,4 +48,30 @@ iframe {
     display: none;
     margin: 20px;
     gap: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px;
+    background-color: #FCCFFF;
+    outline: 2px black;
+}
+
+th, td {
+    height: 50px;
+    border: 1px solid black; 
+    text-align: center;
+}
+
+input {
+    height: 30px; 
+    margin: 5px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.link-input {
+    width: 500px;
 }

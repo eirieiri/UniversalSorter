@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputContainer = document.getElementById("input");
     const buttonContainer = document.getElementById("buttons");
     const textContainer = document.getElementById("text");
-    const choiceContainer = document.getElementById("option-character")
-    const resultsContainer = document.getElementById("results")
+    const choiceContainer = document.getElementById("option-character");
+    const resultsContainer = document.getElementById("results");
 
     const thingsToSort = [];
 
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             buttonContainer.textContent = ""
 
             let finishedMessage = document.createElement("h2")
-            finishedMessage.textContent = "Congrats! You finished sorting!" 
+            finishedMessage.textContent = "Congrats! You finished sorting!"
 
             textContainer.appendChild(finishedMessage);
 
@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
             await displayResults(sorted, resultsContainer)
         }
     });
+
 });
 
 /**
@@ -185,15 +186,15 @@ async function mergeSort(array, battleNumber) {
     }
 
     const middle = Math.floor(array.length / 2);
-    const left = array.slice(0, middle);  
+    const left = array.slice(0, middle);
     const right = array.slice(middle);
 
 
     return await merge(
-        await mergeSort(left, battleNumber), 
-        await mergeSort(right, battleNumber), 
+        await mergeSort(left, battleNumber),
+        await mergeSort(right, battleNumber),
         battleNumber
-        );
+    );
 }
 
 
@@ -249,9 +250,9 @@ async function displayResults(sorted, container) {
     var table = document.createElement("table");
 
     var headerRow = document.createElement("tr");
-    
+
     var placementHeader = document.createElement("th");
-    placementHeader.width = "50px"; 
+    placementHeader.width = "50px";
     var embedHeader = document.createElement("th");
     embedHeader.width = "600px"
     var nameHeader = document.createElement("th");

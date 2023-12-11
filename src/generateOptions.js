@@ -92,13 +92,14 @@ document.addEventListener("DOMContentLoaded", function () {
         textContainer.appendChild(text)
 
         let fileInput = document.createElement("input")
-        fileInput.id = "file-input"
+        fileInput.id = "file-input-box"
         fileInput.type = "file"
         optionContainer.appendChild(fileInput)
 
         let confirm = document.createElement("button")
         confirm.id = "confirm-input"
         confirm.textContent = "Confirm"
+        confirm.accept = ".json"
         buttonsContainer.appendChild(confirm)
     })
 

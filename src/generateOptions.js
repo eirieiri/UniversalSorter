@@ -49,13 +49,16 @@ document.addEventListener("DOMContentLoaded", function () {
     *   - Add option: uses generateOption (id = "addOption") 
     *   - Start
     */
-    const manualButton = document.getElementById("manual-input")
+    const manualButton = document.getElementById("manual-input");
+    const fileButton = document.getElementById("file-input");
+    let optionContainer = document.getElementById("input");
+
+
+    //get different dontainers 
+    let buttonsContainer = document.getElementById("buttons")
+    let textContainer = document.getElementById("text")
 
     manualButton.addEventListener("click", function () {
-        //get different dontainers 
-        let buttonsContainer = document.getElementById("buttons")
-        let textContainer = document.getElementById("text")
-
         //empty the body of the container
         buttonsContainer.textContent = ""
 
@@ -76,8 +79,27 @@ document.addEventListener("DOMContentLoaded", function () {
         //Add the start button 
         let startButton = document.createElement("button")
         startButton.id = "start-manual"
-        startButton.textContent = "Start!" 
+        startButton.textContent = "Start!"
         buttonsContainer.appendChild(startButton)
+    })
+
+
+    fileButton.addEventListener("click", function() {
+        buttonsContainer.textContent = ""
+
+        let text = document.createElement("h2")
+        text.textContent = "Enter your file: "
+        textContainer.appendChild(text)
+
+        let fileInput = document.createElement("input")
+        fileInput.id = "file-input"
+        fileInput.type = "file"
+        optionContainer.appendChild(fileInput)
+
+        let confirm = document.createElement("button")
+        confirm.id = "confirm-input"
+        confirm.textContent = "Confirm"
+        buttonsContainer.appendChild(confirm)
     })
 
     /**

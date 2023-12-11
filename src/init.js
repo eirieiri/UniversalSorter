@@ -22,6 +22,15 @@ let playlistButton = document.createElement("button");
 playlistButton.id = "playlist-input";
 playlistButton.textContent = "Playlist";
 
+let fileInputContainer = document.createElement("div")
+fileInputContainer.style.display = "block";
+let fileInputButton = document.createElement("button");
+fileInputButton.textContent = "Input File";
+fileInputButton.id = "file-input"
+fileInputContainer.appendChild(fileInputButton);
+fileInputButton.className = "file-input"
+
+
 //disable playlist button 
 playlistButton.disabled = true;
 
@@ -30,4 +39,4 @@ playlistContainer.appendChild(playlistButton);
 //final append 
 buttonContainer.appendChild(manualContainer);
 buttonContainer.appendChild(playlistContainer);
-
+buttonContainer.appendChild(fileInputContainer)

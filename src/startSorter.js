@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target.id === "start-manual") {
 
             saveInputs(thingsToSort);
-            console.log("Confirm button clicked!");
 
             //clear the html 
             buttonContainer.innerHTML = "";
@@ -44,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log("Displaying results")
             console.log(sorted)
+
             await displayResults(sorted, resultsContainer)
         }
     });
@@ -136,7 +136,6 @@ function processYoutubelink(url) {
 async function startSorter(array) {
     let optionCharacterElement = document.getElementById("option-character");
     optionCharacterElement.style.display = "flex";
-    console.log("Sorter was started")
     //find the different containers 
     let buttonContainer = document.getElementById("buttons")
 
@@ -151,12 +150,12 @@ async function startSorter(array) {
     buttonContainer.appendChild(leftButton)
     buttonContainer.appendChild(rightButton)
 
-    let sorted = await mergeSort(array, 1)
+    return await mergeSort(array, 1)
+
 }
 
 //merge function
 async function merge(left, right, battleNumber) {
-    console.log("merge was started")
     let textContainer = document.getElementById("text")
     textContainer.textContent = ""
     let text = document.createElement("h2");
@@ -168,7 +167,6 @@ async function merge(left, right, battleNumber) {
 
     while (left.length && right.length) {
         let choice = await chooseCharacter(left[0], right[0]);
-        console.log("Processing Choice")
 
         if (choice === 0) {
             arr.push(left.shift());
@@ -176,13 +174,12 @@ async function merge(left, right, battleNumber) {
             arr.push(right.shift());
         }
     }
+
     return [...arr, ...left, ...right]
 }
 
 //mergeSort function 
 async function mergeSort(array, battleNumber) {
-    console.log("merge sort was started")
-
     if (array.length <= 1) {
         return array;
     }
@@ -190,6 +187,7 @@ async function mergeSort(array, battleNumber) {
     const middle = Math.floor(array.length / 2);
     const left = array.slice(0, middle);  
     const right = array.slice(middle);
+
 
     return await merge(
         await mergeSort(left, battleNumber), 
@@ -201,7 +199,6 @@ async function mergeSort(array, battleNumber) {
 
 //based of what button is pressed returns 1 or 0 
 async function chooseCharacter(left, right) {
-    console.log("Choose between the 2 options: ")
     return new Promise((resolve, reject) => {
         let option_1Container = document.getElementById("opt-1");
         let option_2Container = document.getElementById("opt-2");
@@ -228,9 +225,6 @@ async function chooseCharacter(left, right) {
 
         option_2Container.appendChild(iframe2)
         option_2Container.appendChild(name2)
-
-        // Make buttons reactable
-        console.log("Choose option")
 
         // Event listener for button click
         function handleButtonClick(event) {
@@ -271,7 +265,6 @@ async function displayResults(sorted, container) {
     table.appendChild(headerRow);
 
     sorted.forEach((element, index) => {
-        console.log("Index: " + index)
         var row = document.createElement("tr");
         index++;
 

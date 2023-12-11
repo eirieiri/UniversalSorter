@@ -3,10 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputContainer = document.getElementById("input");
     const buttonContainer = document.getElementById("buttons");
     const textContainer = document.getElementById("text");
+    const choiceContainer = document.getElementById("option-character")
 
     const thingsToSort = [];
 
-    document.addEventListener("click", function () {
+    document.addEventListener("click", async function () {
         //Start manual button is pressed
         if (event.target.id === "start-manual") {
 
@@ -30,7 +31,15 @@ document.addEventListener("DOMContentLoaded", function () {
             textContainer.innerHTML = "";
 
             //start sorter 
-            startSorter(thingsToSort);
+            let sorted = await startSorter(thingsToSort);
+
+            choiceContainer.textContent = ""
+            buttonContainer.textContent = ""
+
+            let finishedMessage = document.createElement("h2")
+            finishedMessage.textContent = "Congrats! You finished sorting!" 
+
+            textContainer.appendChild(finishedMessage);
         }
     });
 });
@@ -137,7 +146,7 @@ async function startSorter(array) {
     buttonContainer.appendChild(leftButton)
     buttonContainer.appendChild(rightButton)
 
-    let sorted = mergeSort(array, 1)
+    let sorted = await mergeSort(array, 1)
 }
 
 //merge function
@@ -146,16 +155,15 @@ async function merge(left, right, battleNumber) {
     let textContainer = document.getElementById("text")
     textContainer.textContent = ""
     let text = document.createElement("h2");
-    text.textContent = `Battle N.${battleNumber}`;
+    text.textContent = `Battle N.${battleNumber++}`;
 
     textContainer.appendChild(text)
-
-    battleNumber++
 
     let arr = [];
 
     while (left.length && right.length) {
         let choice = await chooseCharacter(left[0], right[0]);
+        console.log("Processing Choice")
 
         if (choice === 0) {
             arr.push(left.shift());
@@ -178,12 +186,17 @@ async function mergeSort(array, battleNumber) {
     const left = array.slice(0, middle);  
     const right = array.slice(middle);
 
-    return merge(await mergeSort(left, battleNumber), await mergeSort(right, battleNumber), battleNumber);
+    return await merge(
+        await mergeSort(left, battleNumber), 
+        await mergeSort(right, battleNumber), 
+        battleNumber
+        );
 }
 
 
 //based of what button is pressed returns 1 or 0 
 async function chooseCharacter(left, right) {
+    console.log("Choose between the 2 options: ")
     return new Promise((resolve, reject) => {
         let option_1Container = document.getElementById("opt-1");
         let option_2Container = document.getElementById("opt-2");

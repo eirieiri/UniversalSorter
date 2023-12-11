@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
             finishedMessage.textContent = "Congrats! You finished sorting!" 
 
             textContainer.appendChild(finishedMessage);
-            displayTable(sorted)
         }
     });
 });
@@ -246,48 +245,45 @@ async function chooseCharacter(left, right) {
     });
 }
 
+function displayResults(sorted) {
+    var resultsContainer = document.getElementById("results");
 
-function displayTable(array) {
-    // Get the container where you want to display the table
-    const textContainer = document.getElementById("table-container");
+    var table = document.createElement("table");
 
-    // Create a table element
-    const table = document.createElement("table");
+    var headerRow = document.createElement("tr");
+    
+    var placementHeader = document.createElement("th");
+    var embedHeader = document.createElement("th");
+    var nameHeader = document.createElement("th");
 
-    // Create table header
-    const headerRow = document.createElement("tr");
-    const embedHeader = document.createElement("th");
-    const nameHeader = document.createElement("th");
-    embedHeader.textContent = "Embed";
+    placementHeader.textContent = "Placement";
+    embedHeader.textContent = "Link";
     nameHeader.textContent = "Name";
+
+    headerRow.appendChild(placementHeader);
     headerRow.appendChild(embedHeader);
     headerRow.appendChild(nameHeader);
+
     table.appendChild(headerRow);
 
-    // Create table rows
-    array.forEach(item => {
-        const row = document.createElement("tr");
-        const embedCell = document.createElement("td");
-        const nameCell = document.createElement("td");
+    sorted.forEach((element, index) => {
+        var row = document.createElement("tr");
+        index++
 
-        // Create an iframe for the embed
-        const embedIframe = document.createElement("iframe");
-        embedIframe.src = item.link;
-        embedIframe.width = "300"; 
-        embedIframe.height = "200"; 
-        embedCell.appendChild(embedIframe);
+        var placementCell = document.createElement("td");
+        var embedCell = document.createElement("td");
+        var nameCell = document.createElement("td");
 
-        // Set the name
-        nameCell.textContent = item.name;
+        placementCell.textContent = index;
+        embedCell.textContent = element.link;
+        nameCell.textContent = element.name;
 
-        // Append cells to the row
+        row.appendChild(placementCell);
         row.appendChild(embedCell);
         row.appendChild(nameCell);
 
-        // Append the row to the table
         table.appendChild(row);
     });
 
-    // Append the table to the container
-    textContainer.appendChild(table);
+    resultsContainer.appendChild(table);
 }
